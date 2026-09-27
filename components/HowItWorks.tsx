@@ -4,21 +4,21 @@ export default function HowItWorks() {
   const steps = [
     {
       number: "1",
-      title: "Center your gaze",
+      title: "Touch ID Biometric Enrollment",
       description:
-        "Put on your AirPods and look at your screen. Calibrate from the menu bar or press your shortcut so the app precisely locks where your display is positioned.",
+        "Enroll your face in under 5 seconds with Touch ID. BlurGlass creates 10 encrypted mathematical feature prints stored strictly in your Mac Keychain (never synced to the cloud).",
     },
     {
       number: "2",
-      title: "Turn naturally",
+      title: "10 FPS Local Vision Processing",
       description:
-        "A configurable 2–30° comfort zone, set to 15° by default, ignores natural minor movements you make while reading, typing, and thinking.",
+        "Apple's native Vision framework monitors face bounding boxes, head yaw/pitch angles, and biometric match distance with negligible CPU and battery usage.",
     },
     {
       number: "3",
-      title: "Let the screen soften",
+      title: "System-Wide Frosted Shield",
       description:
-        "Cross the comfort zone and a full-screen frosted glass gradient starts covering your screen with a smooth transition distance before the entire display becomes fully blurred.",
+        "Cross your gaze threshold, leave your desk, or introduce a second person into the frame, and a hardware-accelerated frost shield covers all Spaces, apps, and connected screens.",
     },
   ];
 
@@ -30,12 +30,13 @@ export default function HowItWorks() {
     >
       <div className="container how-grid">
         <div>
+          <div className="section-eyebrow">Architecture & Flow</div>
           <h2 id="how-title" className="section-h2">
-            A quiet reflex for your Mac.
+            Engineered for pure privacy and zero friction.
           </h2>
           <p className="section-desc">
-            Set it once from the menu bar, then let your AirPods handle the rest
-            seamlessly in the background.
+            BlurGlass operates quietly in the background as a lightweight macOS agent.
+            No accounts, no telemetry, and no video files ever touch disk.
           </p>
         </div>
 

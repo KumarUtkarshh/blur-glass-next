@@ -2,34 +2,36 @@ import type { Metadata } from "next";
 import "./globals.css";
 
 export const metadata: Metadata = {
-  metadataBase: new URL("https://shyglass.app"),
-  title: "ShyGlass — Your screen softens when you look away",
+  metadataBase: new URL("https://blurglass.app"),
+  title: "BlurGlass — Privacy-First Screen Shield for macOS",
   description:
-    "ShyGlass uses AirPods head tracking to blur your Mac when you look away. $3.99 once, for up to five Macs.",
+    "BlurGlass uses on-device camera intelligence to shield your screen the moment you look away, step away, or someone glances over your shoulder.",
   icons: {
     icon: [{ url: "/favicon-32.png", sizes: "32x32", type: "image/png" }],
     apple: "/app-icon.png",
   },
   openGraph: {
-    title: "ShyGlass — Look away and hide your screen.",
-    description: "AirPods head tracking privacy screen for your Mac.",
-    url: "https://shyglass.app",
-    siteName: "ShyGlass",
+    title: "BlurGlass — Your screen is visible only when you look at it.",
+    description:
+      "100% on-device camera vision privacy shield for Mac. Zero cloud uploads.",
+    url: "https://blurglass.app",
+    siteName: "BlurGlass",
     images: [
       {
-        url: "/shyglass-poster.jpg",
-        width: 1200,
-        height: 630,
-        alt: "ShyGlass privacy screen preview",
+        url: "/app_icon_1024.png",
+        width: 1024,
+        height: 1024,
+        alt: "BlurGlass Privacy Shield",
       },
     ],
     type: "website",
   },
   twitter: {
     card: "summary_large_image",
-    title: "ShyGlass — Look away and hide your screen.",
-    description: "AirPods head tracking privacy screen for your Mac.",
-    images: ["/shyglass-poster.jpg"],
+    title: "BlurGlass — Look away and hide your screen.",
+    description:
+      "100% on-device camera vision privacy shield for Mac. Zero cloud uploads.",
+    images: ["/app_icon_1024.png"],
   },
 };
 

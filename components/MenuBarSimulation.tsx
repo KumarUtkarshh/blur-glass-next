@@ -1,40 +1,36 @@
 "use client";
 
 import { useState } from "react";
-import Image from "next/image";
 
 export default function MenuBarSimulation() {
   const [shieldActive, setShieldActive] = useState<boolean>(true);
-  const [comfortZone, setComfortZone] = useState<number>(15);
-  const [transitionDistance, setTransitionDistance] = useState<number>(18);
+  const [yawThreshold, setYawThreshold] = useState<number>(22);
+  const [pitchThreshold, setPitchThreshold] = useState<number>(24);
   const [menuOpen, setMenuOpen] = useState<boolean>(true);
-  const [calibratedTime, setCalibratedTime] = useState<string>("Just now");
+  const [enrolledTime, setEnrolledTime] = useState<string>("Touch ID Verified");
 
-  const calibrate = () => {
-    const d = new Date();
-    setCalibratedTime(
-      `${d.toLocaleTimeString([], { hour: "2-digit", minute: "2-digit", second: "2-digit" })}`,
-    );
+  const reEnroll = () => {
+    setEnrolledTime("Re-enrolled via Touch ID");
   };
 
   return (
-    <section className="container" style={{ paddingBlock: "60px 80px" }}>
+    <section className="container" id="menu-bar" style={{ paddingBlock: "60px 80px" }}>
       <div
         style={{
           textAlign: "center",
-          maxWidth: "620px",
-          margin: "0 auto 36px",
+          maxWidth: "580px",
+          margin: "0 auto 32px",
         }}
       >
+        <div className="section-eyebrow" style={{ textAlign: "center" }}>macOS Integration</div>
         <h2
           className="section-h2"
-          style={{ fontSize: "clamp(1.8rem, 3vw, 2.5rem)" }}
+          style={{ fontSize: "clamp(1.8rem, 3vw, 2.4rem)" }}
         >
-          Designed for your macOS Menu Bar.
+          Menu Bar Control
         </h2>
         <p className="section-desc">
-          Unobtrusive, ultra-lightweight, and respects your focus. Calibrate
-          with a click or test your settings directly below.
+          Toggle protection or tune gaze sensitivity with a single click.
         </p>
       </div>
 
@@ -67,10 +63,9 @@ export default function MenuBarSimulation() {
         >
           <div style={{ display: "flex", alignItems: "center", gap: "16px" }}>
             <span style={{ fontSize: "15px" }}></span>
-            <span style={{ fontWeight: "600" }}>Finder</span>
-            <span style={{ opacity: 0.8 }}>File</span>
-            <span style={{ opacity: 0.8 }}>Edit</span>
-            <span style={{ opacity: 0.8 }}>View</span>
+            <span style={{ fontWeight: "600" }}>BlurGlass</span>
+            <span style={{ opacity: 0.8 }}>Protection</span>
+            <span style={{ opacity: 0.8 }}>Sensitivity</span>
             <span style={{ opacity: 0.8 }}>Window</span>
             <span style={{ opacity: 0.8 }}>Help</span>
           </div>
@@ -90,21 +85,16 @@ export default function MenuBarSimulation() {
                 fontSize: "12.5px",
                 transition: "background 0.15s ease",
               }}
+              title="Click to toggle BlurGlass menu popover"
             >
-              <Image
-                src="/app-icon.png"
-                width={16}
-                height={16}
-                alt="ShyGlass icon"
-                style={{ borderRadius: "3px" }}
-              />
+              <span style={{ fontSize: "13px" }}>🛡️</span>
               <span>
-                {shieldActive ? "ShyGlass: Active" : "ShyGlass: Paused"}
+                {shieldActive ? "Active" : "Paused"}
               </span>
             </button>
             <span style={{ opacity: 0.8, fontSize: "12px" }}>100% 🔋</span>
             <span style={{ opacity: 0.8, fontSize: "12px" }}>
-              Tue Sep 27 10:30 AM
+              Tue 10:30 AM
             </span>
           </div>
         </div>
@@ -115,7 +105,7 @@ export default function MenuBarSimulation() {
             style={{
               maxWidth: "380px",
               marginLeft: "auto",
-              background: "rgba(255, 255, 255, 0.95)",
+              background: "rgba(255, 255, 255, 0.96)",
               backdropFilter: "blur(24px)",
               borderRadius: "14px",
               padding: "16px",
@@ -124,6 +114,7 @@ export default function MenuBarSimulation() {
               border: "1px solid rgba(255,255,255,0.4)",
             }}
           >
+            {/* Header / Status row */}
             <div
               style={{
                 display: "flex",
@@ -132,45 +123,35 @@ export default function MenuBarSimulation() {
                 marginBottom: "12px",
               }}
             >
-              <div
-                style={{ display: "flex", alignItems: "center", gap: "10px" }}
-              >
-                <Image
-                  src="/app-icon.png"
-                  width={28}
-                  height={28}
-                  alt="ShyGlass"
-                  style={{ borderRadius: "6px" }}
-                />
-                <div>
-                  <div
+              <div>
+                <div
+                  style={{
+                    fontWeight: "700",
+                    fontSize: "14px",
+                    color: "var(--ink)",
+                  }}
+                >
+                  BlurGlass
+                </div>
+                <div
+                  style={{
+                    fontSize: "11.5px",
+                    color: shieldActive ? "#16a34a" : "#64748b",
+                    display: "flex",
+                    alignItems: "center",
+                    gap: "5px",
+                    fontWeight: "550",
+                  }}
+                >
+                  <span
                     style={{
-                      fontWeight: "700",
-                      fontSize: "14px",
-                      color: "var(--ink)",
+                      width: "7px",
+                      height: "7px",
+                      borderRadius: "50%",
+                      background: shieldActive ? "#16a34a" : "#94a3b8",
                     }}
-                  >
-                    ShyGlass
-                  </div>
-                  <div
-                    style={{
-                      fontSize: "11.5px",
-                      color: "#16a34a",
-                      display: "flex",
-                      alignItems: "center",
-                      gap: "4px",
-                    }}
-                  >
-                    <span
-                      style={{
-                        width: "6px",
-                        height: "6px",
-                        borderRadius: "50%",
-                        background: "#16a34a",
-                      }}
-                    />
-                    AirPods Pro Connected
-                  </div>
+                  />
+                  {shieldActive ? "FaceTime HD (10 FPS)" : "Paused"}
                 </div>
               </div>
 
@@ -179,31 +160,33 @@ export default function MenuBarSimulation() {
                 type="button"
                 onClick={() => setShieldActive(!shieldActive)}
                 style={{
-                  width: "42px",
-                  height: "24px",
+                  width: "44px",
+                  height: "26px",
                   borderRadius: "100px",
                   background: shieldActive ? "#34c759" : "#cbd5e1",
                   position: "relative",
                   transition: "background 0.2s ease",
+                  cursor: "pointer",
                 }}
                 aria-label="Toggle shield state"
               >
                 <div
                   style={{
-                    width: "20px",
-                    height: "20px",
+                    width: "22px",
+                    height: "22px",
                     borderRadius: "50%",
                     background: "#ffffff",
                     position: "absolute",
                     top: "2px",
                     left: shieldActive ? "20px" : "2px",
                     transition: "left 0.2s cubic-bezier(0.16, 1, 0.3, 1)",
-                    boxShadow: "0 2px 4px rgba(0,0,0,0.2)",
+                    boxShadow: "0 2px 5px rgba(0,0,0,0.2)",
                   }}
                 />
               </button>
             </div>
 
+            {/* Controls body */}
             <div
               style={{
                 borderTop: "1px solid #e2e8f0",
@@ -213,9 +196,10 @@ export default function MenuBarSimulation() {
                 gap: "12px",
               }}
             >
+              {/* Enrollment status button */}
               <button
                 type="button"
-                onClick={calibrate}
+                onClick={reEnroll}
                 style={{
                   width: "100%",
                   padding: "8px 12px",
@@ -224,24 +208,25 @@ export default function MenuBarSimulation() {
                   borderRadius: "8px",
                   color: "var(--ink)",
                   fontWeight: "600",
-                  fontSize: "13px",
+                  fontSize: "12px",
                   display: "flex",
                   alignItems: "center",
                   justifyContent: "space-between",
                 }}
               >
-                <span>🎯 Recenter / Calibrate Gaze</span>
+                <span>Keychain Biometrics</span>
                 <span
                   style={{
                     fontSize: "11px",
                     color: "var(--muted)",
-                    fontWeight: "normal",
+                    fontWeight: "500",
                   }}
                 >
-                  {calibratedTime}
+                  {enrolledTime}
                 </span>
               </button>
 
+              {/* Yaw slider */}
               <div>
                 <div
                   style={{
@@ -252,22 +237,23 @@ export default function MenuBarSimulation() {
                   }}
                 >
                   <span style={{ color: "var(--ink)", fontWeight: "600" }}>
-                    Comfort Zone Threshold
+                    Yaw Tolerance (Left/Right)
                   </span>
-                  <span style={{ color: "var(--accent)", fontWeight: "650" }}>
-                    {comfortZone}°
+                  <span style={{ color: "var(--accent)", fontWeight: "700" }}>
+                    ±{yawThreshold}°
                   </span>
                 </div>
                 <input
                   type="range"
-                  min="2"
-                  max="30"
-                  value={comfortZone}
-                  onChange={(e) => setComfortZone(Number(e.target.value))}
+                  min="10"
+                  max="35"
+                  value={yawThreshold}
+                  onChange={(e) => setYawThreshold(Number(e.target.value))}
                   style={{ width: "100%", height: "4px" }}
                 />
               </div>
 
+              {/* Pitch slider */}
               <div>
                 <div
                   style={{
@@ -278,59 +264,38 @@ export default function MenuBarSimulation() {
                   }}
                 >
                   <span style={{ color: "var(--ink)", fontWeight: "600" }}>
-                    Transition Distance
+                    Pitch Tolerance (Up/Down)
                   </span>
-                  <span style={{ color: "var(--accent)", fontWeight: "650" }}>
-                    +{transitionDistance}°
+                  <span style={{ color: "var(--accent)", fontWeight: "700" }}>
+                    ±{pitchThreshold}°
                   </span>
                 </div>
                 <input
                   type="range"
-                  min="5"
-                  max="30"
-                  value={transitionDistance}
-                  onChange={(e) =>
-                    setTransitionDistance(Number(e.target.value))
-                  }
+                  min="10"
+                  max="35"
+                  value={pitchThreshold}
+                  onChange={(e) => setPitchThreshold(Number(e.target.value))}
                   style={{ width: "100%", height: "4px" }}
                 />
               </div>
 
+              {/* Hotkey Info footer */}
               <div
                 style={{
                   fontSize: "11px",
                   color: "var(--muted)",
                   display: "flex",
                   justifyContent: "space-between",
-                  paddingTop: "4px",
+                  paddingTop: "6px",
+                  borderTop: "1px solid #f1f5f9",
                 }}
               >
                 <span>
-                  Global Shortcut:{" "}
-                  <kbd
-                    style={{
-                      background: "#f1f5f9",
-                      padding: "2px 5px",
-                      borderRadius: "4px",
-                      border: "1px solid #cbd5e1",
-                    }}
-                  >
-                    ⌥ ⌘ R
-                  </kbd>
+                  Toggle: <kbd style={{ background: "#f1f5f9", padding: "2px 5px", borderRadius: "4px", border: "1px solid #cbd5e1" }}>⌥ ⌘ R</kbd>
                 </span>
                 <span>
-                  Press{" "}
-                  <kbd
-                    style={{
-                      background: "#f1f5f9",
-                      padding: "2px 5px",
-                      borderRadius: "4px",
-                      border: "1px solid #cbd5e1",
-                    }}
-                  >
-                    Esc
-                  </kbd>{" "}
-                  to dismiss
+                  Override: <kbd style={{ background: "#f1f5f9", padding: "2px 5px", borderRadius: "4px", border: "1px solid #cbd5e1" }}>Esc</kbd>
                 </span>
               </div>
             </div>

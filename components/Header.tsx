@@ -7,21 +7,19 @@ export default function Header() {
   return (
     <header className="site-header">
       <div className="container header-inner">
-        <Link href="/" className="wordmark" aria-label="ShyGlass home">
+        <Link href="/" className="wordmark" aria-label="BlurGlass home">
           <Image
             src="/app-icon.png"
-            alt="ShyGlass Icon"
+            alt="BlurGlass Icon"
             width={38}
             height={38}
             priority
           />
-          <span>ShyGlass</span>
+          <span>BlurGlass</span>
         </Link>
 
         <nav className="nav-links" aria-label="Main navigation">
           <a href="#how-it-works">How it works</a>
-          <a href="#simulator">Simulator</a>
-          <a href="#compatibility">AirPods</a>
           <a href="#comfort">Comfort Zone</a>
           <a href="#questions">Questions</a>
         </nav>
@@ -33,8 +31,8 @@ export default function Header() {
             rel="noopener noreferrer"
             className="header-buy-btn"
           >
-            <span>Get ShyGlass</span>
-            <span style={{ opacity: 0.8 }}>$3.99</span>
+            <span>Get BlurGlass</span>
+            <span style={{ opacity: 0.8 }}>$4.99</span>
           </a>
         </div>
       </div>

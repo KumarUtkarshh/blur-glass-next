@@ -3,12 +3,9 @@
 import { useState } from "react";
 
 export default function ComfortZone() {
-  const [testAngle, setTestAngle] = useState<number>(15);
-  const comfortThreshold = 15;
-  const fullCoverOffset = 18; // 15 + 18 = 33 deg
-
-  // Calculate position percentage from 0 to 45 degrees
-  const maxDeg = 40;
+  const [testAngle, setTestAngle] = useState<number>(14);
+  const comfortThreshold = 22;
+  const maxDeg = 45;
   const indicatorPercent = Math.min(100, (testAngle / maxDeg) * 100);
 
   return (
@@ -21,27 +18,24 @@ export default function ComfortZone() {
             Nothing to manage.
           </h2>
           <p className="section-desc">
-            Choose how much movement feels normal, adjust the blur strength, and
-            assign your own global shortcut for recentering. Escape always clears an active shield.
+            Choose how much movement feels normal. A configurable 22° zone ignores natural minor head shifts you make while reading, typing, and thinking.
           </p>
         </div>
 
         <div className="degree-scale-card">
           <div
             className="scale-track-wrap"
-            aria-label="Default shield response from center through eighteen degrees past the comfort threshold"
+            aria-label="Default shield response from center through comfort threshold"
           >
             <div className="scale-track-bar">
               <i style={{ left: "0%" }} />
-              <i style={{ left: "37.5%" }} />
-              <i style={{ left: "82.5%" }} />
+              <i style={{ left: "48.8%" }} />
               <i style={{ left: "100%" }} />
 
-              {/* Real-time interactive cursor indicator */}
               <div
                 className="scale-cursor-indicator"
                 style={{ left: `${indicatorPercent}%` }}
-                title={`Current tested angle: ${testAngle}°`}
+                title={`Tested angle: ${testAngle}°`}
               />
             </div>
           </div>
@@ -53,34 +47,32 @@ export default function ComfortZone() {
             </span>
             <span>
               Default comfort
-              <b>15°</b>
+              <b>22°</b>
             </span>
             <span>
-              Default full cover
-              <b>+18° (33°)</b>
+              Glance away
+              <b>45°</b>
             </span>
           </div>
 
           <div className="scale-interactive-slider">
-            <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center", marginTop: "12px" }}>
+            <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center", marginTop: "16px" }}>
               <span style={{ fontSize: "13px", fontWeight: "600", color: "var(--ink)" }}>
                 Test Sensitivity Scale: <span style={{ color: "var(--accent)" }}>{testAngle}°</span>
               </span>
-              <span style={{ fontSize: "12px", color: "var(--muted)" }}>
+              <span style={{ fontSize: "12px", color: "var(--muted)", fontWeight: "500" }}>
                 {testAngle <= comfortThreshold
-                  ? "✓ Crisp & Unblurred (Clear)"
-                  : testAngle < comfortThreshold + fullCoverOffset
-                  ? `⚡ Softening (${Math.round(((testAngle - comfortThreshold) / fullCoverOffset) * 100)}% Blur)`
-                  : "🔒 100% Shielded"}
+                  ? "Clear & Focused (Within Zone)"
+                  : "Shield Engaged (Gaze Exited)"}
               </span>
             </div>
             <input
               type="range"
               min="0"
-              max="40"
+              max="45"
               value={testAngle}
               onChange={(e) => setTestAngle(Number(e.target.value))}
-              style={{ width: "100%", height: "6px", cursor: "pointer" }}
+              style={{ width: "100%", height: "6px", cursor: "pointer", marginTop: "12px" }}
               aria-label="Test degree slider"
             />
           </div>

@@ -1,73 +1,78 @@
 "use client";
 
 export default function Compatibility() {
-  const models = [
+  const blocks = [
     {
-      title: "AirPods",
-      subtitle: "3rd generation or later",
-      badge: "Supported",
-      specs: "Spatial Audio Head Tracking Gyroscopes",
+      title: "Camera Vision",
+      subtitle: "Face & Head Pose Tracking",
+      badge: "10 FPS",
+      specs: "Apple Vision Framework on-device",
+      icon: (
+        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+          <path d="M14.5 4h-5L7 7H4a2 2 0 0 0-2 2v9a2 2 0 0 0 2 2h16a2 2 0 0 0 2-2V9a2 2 0 0 0-2-2h-3l-2.5-3z" />
+          <circle cx="12" cy="13" r="3" />
+        </svg>
+      ),
     },
     {
-      title: "AirPods Pro",
-      subtitle: "All generations (1st & 2nd Gen USB-C / Lightning)",
-      badge: "Supported",
-      specs: "Dual Optical Sensors & Accelerometers",
+      title: "Touch ID Enrollment",
+      subtitle: "Keychain-Secured Biometrics",
+      badge: "Encrypted",
+      specs: "Local feature prints in Keychain",
+      icon: (
+        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+          <rect width="18" height="11" x="3" y="11" rx="2" ry="2" />
+          <path d="M7 11V7a5 5 0 0 1 10 0v4" />
+        </svg>
+      ),
     },
     {
-      title: "AirPods Max",
-      subtitle: "All generations (Lightning & USB-C)",
-      badge: "Supported",
-      specs: "Nine Microphones & Precision Gyroscope Array",
+      title: "System-Wide Shield",
+      subtitle: "Impenetrable Frost Overlay",
+      badge: "NSPanel",
+      specs: "Assistive-tech level across all Spaces",
+      icon: (
+        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+          <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z" />
+        </svg>
+      ),
     },
   ];
 
   return (
-    <section className="compatibility-section" id="compatibility" aria-labelledby="compatibility-title">
+    <section className="compatibility-section" id="how-it-works" aria-labelledby="how-it-works-title">
       <div className="container compatibility-grid">
         <div>
-          <h2 id="compatibility-title" className="section-h2">
-            Works with head-tracking AirPods.
+          <h2 id="how-it-works-title" className="section-h2">
+            How BlurGlass works.
           </h2>
           <p className="section-desc">
-            ShyGlass reads the same motion sensors Apple uses for dynamic head tracking.
-            Keep your AirPods connected to your Mac while the shield is running.
+            All face detection and gaze tracking happens directly on your Mac.
+            Nothing is ever uploaded, recorded, or saved to disk.
           </p>
         </div>
 
         <div>
-          <div className="model-cards" aria-label="Compatible AirPods models">
-            {models.map((model, idx) => (
+          <div className="model-cards" aria-label="BlurGlass core technology">
+            {blocks.map((block, idx) => (
               <div key={idx} className="model-card">
                 <div>
                   <div className="model-card-header">
-                    <div className="model-icon">
-                      <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
-                        <path d="M3 18v-6a9 9 0 0 1 18 0v6" />
-                        <path d="M21 19a2 2 0 0 1-2 2h-1a2 2 0 0 1-2-2v-3a2 2 0 0 1 2-2h3zM3 19a2 2 0 0 0 2 2h1a2 2 0 0 0 2-2v-3a2 2 0 0 0-2-2H3z" />
-                      </svg>
-                    </div>
-                    <span className="model-badge">{model.badge}</span>
+                    <div className="model-icon">{block.icon}</div>
+                    <span className="model-badge">{block.badge}</span>
                   </div>
-                  <div className="model-title">{model.title}</div>
-                  <div className="model-subtitle">{model.subtitle}</div>
+                  <div className="model-title">{block.title}</div>
+                  <div className="model-subtitle">{block.subtitle}</div>
                 </div>
                 <div style={{ marginTop: "16px", fontSize: "11.5px", color: "var(--muted-light)" }}>
-                  {model.specs}
+                  {block.specs}
                 </div>
               </div>
             ))}
           </div>
 
           <p className="compatibility-note">
-            Standard AirPods 1 and 2 aren&apos;t supported.{" "}
-            <a
-              href="https://support.apple.com/guide/airpods/control-spatial-audio-and-head-tracking-dev00eb7e0a3/web"
-              target="_blank"
-              rel="noopener noreferrer"
-            >
-              See Apple&apos;s head-tracking guide.
-            </a>
+            Compatible with any Mac running macOS 14 Sonoma or later with a FaceTime HD or external webcam.
           </p>
         </div>
       </div>

@@ -5,28 +5,28 @@ import { useState } from "react";
 export default function FAQ() {
   const faqs = [
     {
-      q: "What does ShyGlass actually do?",
-      a: "It reads head-motion data from compatible AirPods and compares it with the position you calibrated as center. Once you move beyond your comfort zone, a directional frosted blur covers your screen until you look back.",
+      q: "What does BlurGlass actually do?",
+      a: "BlurGlass uses your Mac's camera at 10 FPS to track head pose and gaze. The instant you look away, step away from your desk, or an unauthorized face enters view, an impenetrable frosted shield blurs your display in milliseconds.",
     },
     {
-      q: "Which hardware do I need?",
-      a: "You need a Mac running macOS 14 (Sonoma) or later and AirPods 3 or later, AirPods Pro, or AirPods Max. Standard AirPods 1 and 2 don’t support head tracking. The app confirms the connection in Settings before you enable the shield.",
+      q: "Does BlurGlass record or upload camera video?",
+      a: "Never. All camera processing happens strictly in volatile RAM using Apple's on-device Vision framework. Frames are immediately discarded. No video is ever saved to disk or transmitted across any network.",
     },
     {
-      q: "Do I need to wear both AirPods?",
-      a: "No. ShyGlass receives head-motion data from one compatible earbud, so the other can stay in its charging case.",
+      q: "How are owner biometric templates secured?",
+      a: "Your enrolled face vector embeddings are sealed directly inside your Mac's hardware-encrypted Keychain using Touch ID (kSecAttrAccessibleWhenUnlockedThisDeviceOnly). Nobody else can unlock or disable your shield.",
     },
     {
-      q: "Why does it need Screen Recording permission?",
-      a: "The blur is rendered from a current snapshot of your display. That snapshot stays in memory on your Mac, is never saved, and is never uploaded anywhere. Capture immediately stops when the shield is clear.",
+      q: "Which hardware and macOS versions are supported?",
+      a: "BlurGlass requires macOS 14 Sonoma or macOS 15 Sequoia with a built-in FaceTime HD camera or external USB/Thunderbolt webcam. Both Apple Silicon (M1/M2/M3/M4) and Intel Macs are fully supported.",
     },
     {
-      q: "Can I adjust when the blur begins?",
-      a: "Yes. The natural-movement setting starts at 15° and ranges from 2° to 30°. Full coverage is separately adjustable from 5° to 30°. You can recenter with the shield on or off from the menu bar or your chosen keyboard shortcut.",
+      q: "Can I adjust sensitivity and response thresholds?",
+      a: "Yes. The natural comfort zone ranges from 5° to 45°, letting you ignore normal reading movements while immediately shielding your screen when you glance away or leave your workspace.",
     },
     {
       q: "Is it a subscription?",
-      a: "No. ShyGlass is $3.99 once, with no recurring charges or account lock-in, and one license can be activated on up to five of your personal Macs.",
+      a: "No. BlurGlass is a $4.99 one-time purchase with no recurring fees, lifetime updates, and licensing for up to 5 personal Macs.",
     },
   ];
 
@@ -48,7 +48,7 @@ export default function FAQ() {
             A few useful details.
           </h2>
           <p className="section-desc">
-            What ShyGlass sees, what it needs, and what stays strictly private
+            What BlurGlass sees, what it needs, and what stays strictly private
             on your Mac.
           </p>
         </div>

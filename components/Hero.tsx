@@ -9,17 +9,16 @@ export default function Hero() {
         <div className="hero-copy">
           <div className="hero-badge">
             <span className="pulse-dot" />
-            <span>AirPods Motion Sensor Technology</span>
+            <span>Apple Vision Engine • 100% Local</span>
           </div>
 
           <h1 id="hero-title" className="hero-title">
-            Look away and hide your screen.
+            The screen is readable only by you.
           </h1>
 
           <p className="hero-intro">
-            ShyGlass uses the motion sensors in your AirPods to blur your Mac
-            when your attention moves elsewhere. Look back and everything
-            clears.
+            BlurGlass uses on-device camera intelligence to frost your screen
+            the moment you look away or a second face enters view.
           </p>
 
           <div className="hero-purchase">
@@ -30,17 +29,17 @@ export default function Hero() {
               target="_blank"
               rel="noopener noreferrer"
             >
-              Get ShyGlass <span>$3.99</span>
+              Get BlurGlass <span>$4.99</span>
             </a>
             <p className="purchase-note">
-              One payment. Use it on up to five Macs.
+              One-time purchase for up to 5 Macs.
             </p>
           </div>
 
           <ul className="hero-notes" aria-label="Product requirements">
-            <li>macOS 14 or later</li>
-            <li>AirPods 3, Pro, or Max</li>
-            <li>No subscription</li>
+            <li>macOS 14+</li>
+            <li>FaceTime HD / Webcam</li>
+            <li>Zero Cloud Uploads</li>
           </ul>
         </div>
 
