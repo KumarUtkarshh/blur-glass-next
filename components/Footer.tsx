@@ -26,7 +26,7 @@ export default function Footer() {
             rel="noopener noreferrer"
             className="footer-portal-link"
           >
-            Buy BlurGlass ($4.99) ↗
+            Buy BlurGlass ($3.99) ↗
           </a>
         </div>
       </div>

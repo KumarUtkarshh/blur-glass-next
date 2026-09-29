@@ -26,7 +26,7 @@ export default function FAQ() {
     },
     {
       q: "Is it a subscription?",
-      a: "No. BlurGlass is a $4.99 one-time purchase with no recurring fees, lifetime updates, and licensing for up to 5 personal Macs.",
+      a: "No. BlurGlass is a $3.99 one-time purchase with no recurring fees, lifetime updates, and licensing for up to 5 personal Macs.",
     },
   ];
 

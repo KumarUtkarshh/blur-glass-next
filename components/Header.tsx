@@ -32,7 +32,7 @@ export default function Header() {
             className="header-buy-btn"
           >
             <span>Get BlurGlass</span>
-            <span style={{ opacity: 0.8 }}>$4.99</span>
+            <span style={{ opacity: 0.8 }}>$3.99</span>
           </a>
         </div>
       </div>

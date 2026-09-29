@@ -41,8 +41,9 @@ export default function Compatibility() {
 
   return (
     <section className="compatibility-section" id="how-it-works" aria-labelledby="how-it-works-title">
-      <div className="container compatibility-grid">
-        <div>
+      <div className="container">
+        <div className="compatibility-header">
+          <div className="section-eyebrow">Local Architecture</div>
           <h2 id="how-it-works-title" className="section-h2">
             How BlurGlass works.
           </h2>
@@ -52,29 +53,27 @@ export default function Compatibility() {
           </p>
         </div>
 
-        <div>
-          <div className="model-cards" aria-label="BlurGlass core technology">
-            {blocks.map((block, idx) => (
-              <div key={idx} className="model-card">
-                <div>
-                  <div className="model-card-header">
-                    <div className="model-icon">{block.icon}</div>
-                    <span className="model-badge">{block.badge}</span>
-                  </div>
-                  <div className="model-title">{block.title}</div>
-                  <div className="model-subtitle">{block.subtitle}</div>
+        <div className="model-cards" aria-label="BlurGlass core technology">
+          {blocks.map((block, idx) => (
+            <div key={idx} className="model-card">
+              <div className="model-card-top">
+                <div className="model-card-header">
+                  <div className="model-icon">{block.icon}</div>
+                  <span className="model-badge">{block.badge}</span>
                 </div>
-                <div style={{ marginTop: "16px", fontSize: "11.5px", color: "var(--muted-light)" }}>
-                  {block.specs}
-                </div>
+                <div className="model-title">{block.title}</div>
+                <div className="model-subtitle">{block.subtitle}</div>
               </div>
-            ))}
-          </div>
-
-          <p className="compatibility-note">
-            Compatible with any Mac running macOS 14 Sonoma or later with a FaceTime HD or external webcam.
-          </p>
+              <div className="model-specs">
+                {block.specs}
+              </div>
+            </div>
+          ))}
         </div>
+
+        <p className="compatibility-note">
+          Compatible with any Mac running macOS 14 Sonoma or later with a FaceTime HD or external webcam.
+        </p>
       </div>
     </section>
   );
