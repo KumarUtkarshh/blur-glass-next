@@ -1,6 +1,7 @@
 "use client";
 
 import InteractivePreview from "./InteractivePreview";
+import CheckoutButton from "./CheckoutButton";
 
 export default function Hero() {
   return (
@@ -17,15 +18,9 @@ export default function Hero() {
           </p>
 
           <div className="hero-purchase">
-            <a
-              className="buy-button"
-              data-buy
-              href="https://buy.polar.sh/polar_cl_eXbMk6MFQGpY3czW4xuZaFpYgRfg0YXdZxz5u1tOWjl"
-              target="_blank"
-              rel="noopener noreferrer"
-            >
+            <CheckoutButton className="buy-button">
               Get BlurGlass <span>$3.99</span>
-            </a>
+            </CheckoutButton>
           </div>
 
           <ul className="hero-notes" aria-label="Product requirements">

@@ -2,6 +2,7 @@
 
 import Image from "next/image";
 import Link from "next/link";
+import CheckoutButton from "./CheckoutButton";
 
 export default function Header() {
   return (
@@ -25,15 +26,10 @@ export default function Header() {
         </nav>
 
         <div className="header-cta-group">
-          <a
-            href="https://buy.polar.sh/polar_cl_eXbMk6MFQGpY3czW4xuZaFpYgRfg0YXdZxz5u1tOWjl"
-            target="_blank"
-            rel="noopener noreferrer"
-            className="header-buy-btn"
-          >
+          <CheckoutButton className="header-buy-btn">
             <span>Get BlurGlass</span>
             <span style={{ opacity: 0.8 }}>$3.99</span>
-          </a>
+          </CheckoutButton>
         </div>
       </div>
     </header>

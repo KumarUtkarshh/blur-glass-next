@@ -1,0 +1,22 @@
+{
+  "mcpServers": {
+    "dodopayments-api": {
+      "command": "npx",
+      "args": [
+        "-y",
+        "mcp-remote@latest",
+        "https://mcp.dodopayments.com/mcp"
+      ],
+      "env": {}
+    },
+    "dodo-knowledge": {
+      "command": "npx",
+      "args": [
+        "-y",
+        "mcp-remote@latest",
+        "https://knowledge.dodopayments.com/mcp"
+      ],
+      "env": {}
+    }
+  }
+}

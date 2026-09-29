@@ -1,5 +1,8 @@
+"use client";
+
 import Image from "next/image";
 import Link from "next/link";
+import CheckoutButton from "./CheckoutButton";
 
 export default function Footer() {
   return (
@@ -20,14 +23,12 @@ export default function Footer() {
         </span>
 
         <div className="footer-links">
-          <a
-            href="https://buy.polar.sh/polar_cl_eXbMk6MFQGpY3czW4xuZaFpYgRfg0YXdZxz5u1tOWjl"
-            target="_blank"
-            rel="noopener noreferrer"
+          <CheckoutButton
             className="footer-portal-link"
+            style={{ background: "none", padding: 0, textDecoration: "underline", color: "var(--accent)", fontSize: "13px", fontWeight: "550" }}
           >
             Buy BlurGlass ($3.99) ↗
-          </a>
+          </CheckoutButton>
         </div>
       </div>
     </footer>
