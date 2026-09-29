@@ -59,32 +59,54 @@ export default function FAQ() {
             return (
               <div
                 key={idx}
-                className="faq-item"
+                className={`faq-item ${isOpen ? "open" : ""}`}
                 style={{
                   borderBottom:
                     idx === faqs.length - 1 ? "none" : "1px solid var(--line)",
                 }}
               >
-                <div
+                <button
+                  type="button"
                   className="faq-summary"
                   onClick={() => toggle(idx)}
-                  role="button"
-                  tabIndex={0}
-                  onKeyDown={(e) => {
-                    if (e.key === "Enter" || e.key === " ") {
-                      toggle(idx);
-                    }
-                  }}
+                  aria-expanded={isOpen}
+                  aria-controls={`faq-answer-${idx}`}
+                  id={`faq-question-${idx}`}
                 >
                   <span>{faq.q}</span>
                   <div
-                    className="faq-icon-toggle"
-                    style={{ transform: isOpen ? "rotate(45deg)" : "none" }}
+                    className={`faq-icon-toggle ${isOpen ? "open" : ""}`}
+                    aria-hidden="true"
                   >
-                    +
+                    <svg
+                      width="14"
+                      height="14"
+                      viewBox="0 0 14 14"
+                      fill="none"
+                      xmlns="http://www.w3.org/2000/svg"
+                      className="faq-plus-svg"
+                    >
+                      <path
+                        d="M7 2.5V11.5M2.5 7H11.5"
+                        stroke="currentColor"
+                        strokeWidth="1.75"
+                        strokeLinecap="round"
+                        strokeLinejoin="round"
+                      />
+                    </svg>
+                  </div>
+                </button>
+
+                <div
+                  id={`faq-answer-${idx}`}
+                  role="region"
+                  aria-labelledby={`faq-question-${idx}`}
+                  className={`faq-answer-wrapper ${isOpen ? "open" : ""}`}
+                >
+                  <div className="faq-answer-inner">
+                    <p className="faq-answer">{faq.a}</p>
                   </div>
                 </div>
-                {isOpen && <p className="faq-answer">{faq.a}</p>}
               </div>
             );
           })}

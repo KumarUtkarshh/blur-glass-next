@@ -606,8 +606,8 @@ input:focus-visible {
 
 .faq-item {
   border-bottom: 1px solid var(--line);
-  padding: 22px 0;
-  transition: all 0.2s ease;
+  padding-block: 20px;
+  transition: border-color 0.2s ease;
 }
 
 .faq-item:first-child {
@@ -619,39 +619,105 @@ input:focus-visible {
 }
 
 .faq-summary {
+  width: 100%;
   display: flex;
   align-items: center;
   justify-content: space-between;
   gap: 20px;
+  background: none;
+  border: none;
+  padding: 4px 0;
+  font-family: inherit;
   font-size: 17px;
   font-weight: 600;
   line-height: 1.45;
+  text-align: left;
   color: var(--ink);
   cursor: pointer;
   user-select: none;
+  transition: color 0.2s ease;
+}
+
+.faq-summary:hover {
+  color: var(--accent);
+}
+
+.faq-summary:focus-visible {
+  outline: 2px solid var(--accent);
+  outline-offset: 4px;
+  border-radius: 6px;
 }
 
 .faq-icon-toggle {
-  width: 28px;
-  height: 28px;
+  width: 32px;
+  height: 32px;
   border-radius: 50%;
-  background: var(--glass-tint);
-  display: grid;
-  place-items: center;
-  font-size: 18px;
-  font-weight: 400;
+  background: rgba(0, 103, 230, 0.07);
+  border: 1px solid rgba(0, 103, 230, 0.12);
+  display: flex;
+  align-items: center;
+  justify-content: center;
   color: var(--accent);
+  flex-shrink: 0;
   transition:
-    transform 0.25s ease,
-    background 0.2s ease;
+    transform 0.35s cubic-bezier(0.16, 1, 0.3, 1),
+    background-color 0.25s ease,
+    border-color 0.25s ease,
+    color 0.25s ease,
+    box-shadow 0.25s ease;
+}
+
+.faq-summary:hover .faq-icon-toggle {
+  background: rgba(0, 103, 230, 0.13);
+  border-color: rgba(0, 103, 230, 0.22);
+  box-shadow: 0 2px 8px rgba(0, 103, 230, 0.12);
+}
+
+.faq-icon-toggle.open {
+  transform: rotate(45deg);
+  background: var(--accent);
+  color: #ffffff;
+  border-color: var(--accent);
+  box-shadow: 0 3px 10px rgba(0, 103, 230, 0.3);
+}
+
+.faq-plus-svg {
+  width: 14px;
+  height: 14px;
+  display: block;
+}
+
+.faq-answer-wrapper {
+  display: grid;
+  grid-template-rows: 0fr;
+  transition: grid-template-rows 0.35s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.faq-answer-wrapper.open {
+  grid-template-rows: 1fr;
+}
+
+.faq-answer-inner {
+  overflow: hidden;
 }
 
 .faq-answer {
   max-width: 620px;
-  margin-top: 14px;
+  padding-top: 14px;
+  margin: 0;
   font-size: 15.5px;
   line-height: 1.7;
   color: var(--muted);
+  opacity: 0;
+  transform: translateY(-6px);
+  transition:
+    opacity 0.25s ease 0.05s,
+    transform 0.35s cubic-bezier(0.16, 1, 0.3, 1) 0.05s;
+}
+
+.faq-answer-wrapper.open .faq-answer {
+  opacity: 1;
+  transform: translateY(0);
 }
 
 /* Footer */
