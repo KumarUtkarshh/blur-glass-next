@@ -8,7 +8,7 @@ export const metadata: Metadata = {
     "BlurGlass uses on-device camera intelligence to shield your screen the moment you look away, step away, or someone glances over your shoulder.",
   icons: {
     icon: [{ url: "/favicon-32.png", sizes: "32x32", type: "image/png" }],
-    apple: "/app-icon.png",
+    apple: "/app_icon_1024.png",
   },
   openGraph: {
     title: "BlurGlass — Your screen is visible only when you look at it.",
@@ -41,8 +41,8 @@ export default function RootLayout({
   children: React.ReactNode;
 }) {
   return (
-    <html lang="en">
-      <body>{children}</body>
+    <html lang="en" suppressHydrationWarning>
+      <body suppressHydrationWarning>{children}</body>
     </html>
   );
 }

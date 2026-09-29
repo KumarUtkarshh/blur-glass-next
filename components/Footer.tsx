@@ -7,7 +7,7 @@ export default function Footer() {
       <div className="container footer-inner">
         <Link href="/" className="wordmark" aria-label="BlurGlass home">
           <Image
-            src="/app-icon.png"
+            src="/app_icon.svg"
             alt="BlurGlass Icon"
             width={28}
             height={28}

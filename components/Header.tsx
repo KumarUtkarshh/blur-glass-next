@@ -9,10 +9,10 @@ export default function Header() {
       <div className="container header-inner">
         <Link href="/" className="wordmark" aria-label="BlurGlass home">
           <Image
-            src="/app-icon.png"
+            src="/app_icon.svg"
             alt="BlurGlass Icon"
-            width={38}
-            height={38}
+            width={36}
+            height={36}
             priority
           />
           <span>BlurGlass</span>
