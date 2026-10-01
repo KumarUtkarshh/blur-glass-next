@@ -1,77 +1,123 @@
-# Dodo Payments Setup & Testing Guide
+# Dodo Payments Setup, Live Mode & Testing Guide
 
-This guide walks you through the exact steps to configure Dodo Payments for **BlurGlass** ($3.99 one-time payment) in Test Mode and perform test transactions.
-
----
-
-## Step 1: Open the Dodo Payments Dashboard
-
-1. Navigate to the **Dodo Payments Test Dashboard**: [https://test.dodopayments.com](https://test.dodopayments.com)
-2. Sign in or create an account if you haven't already.
-3. Ensure the environment toggle in the top navigation is set to **Test Mode** (orange badge).
+This guide covers everything you need to run **BlurGlass** ($3.99 one-time purchase) in both **Test Mode** and **Live Mode**, and how to seamlessly toggle between them for development, testing, and production deployment.
 
 ---
 
-## Step 2: Create your BlurGlass Product
+## Architecture: Seamless Mode Toggling
 
-1. In the sidebar, click on **Products** (or go to [https://test.dodopayments.com/products](https://test.dodopayments.com/products)).
-2. Click **+ Create Product** (top right).
+The BlurGlass backend is designed with a centralized environment resolver in [`lib/dodopayments.ts`](file:///Users/utkarsh/Documents/blur-glass-next/lib/dodopayments.ts).
+
+### How Environment Detection Works:
+1. **Single Variable Toggle**:
+   Setting `DODO_PAYMENTS_ENVIRONMENT=live_mode` or `test_mode` instantly switches the active mode.
+2. **Dual-Environment Support**:
+   You can either provide standard variables (`DODO_PAYMENTS_API_KEY`, etc.) or store both Test and Live credentials simultaneously with mode prefixes (`DODO_PAYMENTS_LIVE_API_KEY` and `DODO_PAYMENTS_TEST_API_KEY`).
+3. **Automatic Fallback**:
+   In local development, if no environment variable is specified, it defaults safely to `test_mode`.
+
+---
+
+## Part 1: Going Live to Production (Dodo Payments Live Mode)
+
+Follow these steps to activate real payments on your deployed app:
+
+### Step 1: Switch Dodo Dashboard to Live Mode
+1. Open the [Dodo Payments Live Dashboard](https://live.dodopayments.com).
+2. Look at the top navigation bar and switch the toggle from **Test Mode** to **Live Mode** (the badge turns from orange to dark/green).
+3. Ensure your business profile and payout details are completed in Dodo.
+
+### Step 2: Create the BlurGlass Product in Live Mode
+1. In the sidebar, navigate to **Products** ([https://live.dodopayments.com/products](https://live.dodopayments.com/products)).
+2. Click **+ Create Product**.
 3. Fill in the product details:
    - **Product Name**: `BlurGlass for macOS`
    - **Description**: `Lifetime license for BlurGlass on-device privacy screen.`
    - **Pricing Model**: `One-time payment`
    - **Currency**: `USD`
-   - **Amount**: `$3.99` (enter `3.99` or `399` cents)
+   - **Amount**: `$3.99`
 4. Click **Save Product**.
-5. Once created, copy the **Product ID** (it looks like `pdt_...`).
+5. Copy the newly generated **Live Product ID** (e.g. `pdt_...`).
 
----
-
-## Step 3: Generate your API Key
-
-1. In the sidebar, go to **Developer → API Keys** (or [https://test.dodopayments.com/developer/api-keys](https://test.dodopayments.com/developer/api-keys)).
+### Step 3: Generate Live API Key
+1. Go to **Developer → API Keys** ([https://live.dodopayments.com/developer/api-keys](https://live.dodopayments.com/developer/api-keys)).
 2. Click **+ Create API Key**.
-3. Name it: `BlurGlass Next App (Test)`.
-4. Copy the newly generated secret key (starts with `test_` or your Dodo secret token).
+3. Name it: `BlurGlass Production (Vercel)`.
+4. Copy the secret key (store it safely; it is only shown once).
 
----
-
-## Step 4: Configure Webhooks (Optional for local, Required for Live)
-
-1. In the sidebar, go to **Developer → Webhooks** (or [https://test.dodopayments.com/developer/webhooks](https://test.dodopayments.com/developer/webhooks)).
+### Step 4: Configure Live Webhook Endpoint
+1. Go to **Developer → Webhooks** ([https://live.dodopayments.com/developer/webhooks](https://live.dodopayments.com/developer/webhooks)).
 2. Click **+ Add Endpoint**.
-3. **Endpoint URL**: `https://your-domain.com/api/webhooks/dodo` (or your ngrok tunnel URL for local testing).
-4. **Events to subscribe**:
+3. Fill in the endpoint URL:
+   ```
+   https://blurglass.vercel.app/api/webhooks/dodo
+   ```
+4. Subscribe to the following events:
    - `payment.succeeded`
    - `refund.succeeded`
    - `dispute.opened`
-5. Click **Create**.
+5. Click **Create Webhook**.
 6. Copy the **Webhook Signing Secret** (starts with `whsec_...`).
+
+### Step 5: Configure Environment Variables in Vercel
+1. Go to your **Vercel Dashboard** → Select the **`blurglass`** project.
+2. Go to **Settings → Environment Variables**.
+3. Add the following variables for the **Production** environment:
+
+| Variable Name | Value | Description |
+|---|---|---|
+| `DODO_PAYMENTS_ENVIRONMENT` | `live_mode` | Switches Dodo SDK to Live mode |
+| `DODO_PAYMENTS_API_KEY` | `dodo_live_...` (your live API key) | Live Secret API key |
+| `DODO_PAYMENTS_WEBHOOK_KEY` | `whsec_...` (your live webhook secret) | Live Webhook signature verification |
+| `DODO_PRODUCT_ID` | `pdt_...` (your live product ID) | Live BlurGlass product ID ($3.99) |
+| `NEXT_PUBLIC_APP_URL` | `https://blurglass.vercel.app` | Base app URL for success redirect |
+
+4. Trigger a **Redeploy** on Vercel to load the new environment variables.
 
 ---
 
-## Step 5: Update Your Environment Variables
+## Part 2: Local Development & Test Mode
 
-Update your `.env` or `.env.local` file in the project root with the values obtained from the steps above:
+To test locally without charging real credit cards:
 
+### In `.env` (or `.env.local`):
 ```env
-# Dodo Payments Configuration
-DODO_PAYMENTS_API_KEY=your_test_api_key_here
-DODO_PAYMENTS_WEBHOOK_KEY=whsec_your_webhook_signing_secret_here
+# Toggle to test mode
 DODO_PAYMENTS_ENVIRONMENT=test_mode
-DODO_PRODUCT_ID=pdt_your_product_id_here
 
-# App URL for redirection
+# Test Mode Credentials
+DODO_PAYMENTS_API_KEY=your_test_api_key_here
+DODO_PAYMENTS_WEBHOOK_KEY=whsec_your_test_webhook_key
+DODO_PRODUCT_ID=pdt_0NodBHc21ZlHzlMt76xg6
+
+# App URL
 NEXT_PUBLIC_APP_URL=http://localhost:3000
+```
+
+### Option: Dual Credentials in a Single File
+You can also keep both in your `.env`:
+```env
+# Toggle this single line to switch between 'live_mode' and 'test_mode'
+DODO_PAYMENTS_ENVIRONMENT=test_mode
+
+# Live Credentials
+DODO_PAYMENTS_LIVE_API_KEY=your_live_key
+DODO_PAYMENTS_LIVE_WEBHOOK_KEY=whsec_live_key
+DODO_LIVE_PRODUCT_ID=pdt_live_id
+
+# Test Credentials
+DODO_PAYMENTS_TEST_API_KEY=your_test_api_key_here
+DODO_PAYMENTS_TEST_WEBHOOK_KEY=whsec_your_test_webhook_key_here
+DODO_TEST_PRODUCT_ID=pdt_your_test_product_id_here
+
+NEXT_PUBLIC_APP_URL=https://blurglass.vercel.app
 ```
 
 ---
 
-## Step 6: Test Transactions in Test Mode
+## Part 3: Test Payment Scenarios (Test Mode)
 
-When clicking **"Get BlurGlass — $3.99"** on the website, Dodo Payments checkout will open. Use the following official test payment credentials:
-
-### Test Credit Cards (Dodo Payments / Stripe Engine)
+When `DODO_PAYMENTS_ENVIRONMENT=test_mode`, use these official test credit cards:
 
 | Card Brand | Card Number | Expiry | CVC | Expected Result |
 |---|---|---|---|---|
@@ -81,26 +127,8 @@ When clicking **"Get BlurGlass — $3.99"** on the website, Dodo Payments checko
 
 ---
 
-## Step 7: Verifying Successful Flow
+## Part 4: Verification & Webhook Handling
 
-1. On completing payment with `4242 4242 4242 4242`, Dodo Payments will automatically redirect to:
-   `https://blurglass.vercel.app/checkout/success?session_id=cks_...`
-2. The customer will see the **BlurGlass Download & Setup** confirmation screen.
-3. The webhook endpoint at `/api/webhooks/dodo` receives the verified `payment.succeeded` event.
-
----
-
-## Going Live to Production
-
-When you are ready to collect real payments:
-1. Switch the Dodo dashboard to **Live Mode**.
-2. Create the `$3.99` BlurGlass product in Live Mode.
-3. Generate a Live API Key and Webhook Secret.
-4. Update your production environment variables (e.g. in Vercel Project Settings > Environment Variables):
-   ```env
-   DODO_PAYMENTS_API_KEY=live_your_live_api_key
-   DODO_PAYMENTS_WEBHOOK_KEY=whsec_live_webhook_key
-   DODO_PAYMENTS_ENVIRONMENT=live_mode
-   DODO_PRODUCT_ID=pdt_live_product_id
-   NEXT_PUBLIC_APP_URL=https://blurglass.vercel.app
-   ```
+- **Customer Redirect**: After payment, the user is redirected to `/checkout/success?session_id=cks_...` with immediate download instructions.
+- **Webhook Endpoint**: `/api/webhooks/dodo` verifies incoming Standard Webhook HMAC signatures with `client.webhooks.unwrap()` using the mode-appropriate signing key.
+- **Idempotency**: Webhook events are deduplicated by `webhook-id` to prevent duplicate processing.

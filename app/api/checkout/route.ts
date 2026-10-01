@@ -1,30 +1,27 @@
 import { NextRequest, NextResponse } from 'next/server';
-import DodoPayments from 'dodopayments';
-import { BLURGLASS_PRODUCT_ID } from '@/lib/dodopayments';
+import {
+  getDodoClient,
+  getDodoApiKey,
+  getDodoEnvironment,
+  getDodoProductId,
+} from '@/lib/dodopayments';
 
 export async function POST(req: NextRequest) {
   try {
-    const apiKey =
-      process.env.DODO_PAYMENTS_API_KEY ||
-      process.env.DODO_API_KEY;
+    const apiKey = getDodoApiKey();
+    const environment = getDodoEnvironment();
 
     if (!apiKey) {
       return NextResponse.json(
         {
-          error: 'Dodo Payments API Key is not configured.',
-          hint: 'Add DODO_PAYMENTS_API_KEY to your .env.local file.',
+          error: `Dodo Payments API Key is not configured for ${environment}.`,
+          hint: 'Add DODO_PAYMENTS_API_KEY (or mode-specific DODO_PAYMENTS_LIVE_API_KEY / DODO_PAYMENTS_TEST_API_KEY) to your environment variables.',
         },
         { status: 500 }
       );
     }
 
-    const environment =
-      process.env.DODO_PAYMENTS_ENVIRONMENT === 'live_mode' ? 'live_mode' : 'test_mode';
-
-    const client = new DodoPayments({
-      bearerToken: apiKey,
-      environment,
-    });
+    const client = getDodoClient();
 
     // Determine the base URL for redirect
     const origin =
@@ -41,7 +38,7 @@ export async function POST(req: NextRequest) {
       // Body is optional
     }
 
-    const productId = body.productId || BLURGLASS_PRODUCT_ID;
+    const productId = body.productId || getDodoProductId();
 
     // Create Dodo Checkout Session
     const session = await client.checkoutSessions.create({
@@ -62,6 +59,7 @@ export async function POST(req: NextRequest) {
         platform: 'macOS',
         price: '3.99',
         currency: 'USD',
+        environment,
       },
       feature_flags: {
         allow_discount_code: true,
@@ -81,14 +79,17 @@ export async function POST(req: NextRequest) {
       success: true,
       checkoutUrl: session.checkout_url,
       sessionId: session.session_id,
+      environment,
     });
   } catch (error: any) {
-    console.error('Error creating Dodo Payments checkout session:', error);
+    const environment = getDodoEnvironment();
+    console.error(`Error creating Dodo Payments checkout session (${environment}):`, error);
     return NextResponse.json(
       {
         error: error?.message || 'Failed to create checkout session',
         details: error?.error || error?.toString(),
-        hint: 'Verify that your Dodo Payments API key and Product ID are valid in test_mode or live_mode.',
+        environment,
+        hint: `Verify that your Dodo Payments API key and Product ID are valid for ${environment}.`,
       },
       { status: error?.status || 500 }
     );
