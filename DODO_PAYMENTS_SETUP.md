@@ -84,7 +84,7 @@ When clicking **"Get BlurGlass — $3.99"** on the website, Dodo Payments checko
 ## Step 7: Verifying Successful Flow
 
 1. On completing payment with `4242 4242 4242 4242`, Dodo Payments will automatically redirect to:
-   `http://localhost:3000/checkout/success?session_id=cks_...`
+   `https://blurglass.vercel.app/checkout/success?session_id=cks_...`
 2. The customer will see the **BlurGlass Download & Setup** confirmation screen.
 3. The webhook endpoint at `/api/webhooks/dodo` receives the verified `payment.succeeded` event.
 
@@ -96,11 +96,11 @@ When you are ready to collect real payments:
 1. Switch the Dodo dashboard to **Live Mode**.
 2. Create the `$3.99` BlurGlass product in Live Mode.
 3. Generate a Live API Key and Webhook Secret.
-4. Update your production environment variables:
+4. Update your production environment variables (e.g. in Vercel Project Settings > Environment Variables):
    ```env
    DODO_PAYMENTS_API_KEY=live_your_live_api_key
    DODO_PAYMENTS_WEBHOOK_KEY=whsec_live_webhook_key
    DODO_PAYMENTS_ENVIRONMENT=live_mode
    DODO_PRODUCT_ID=pdt_live_product_id
-   NEXT_PUBLIC_APP_URL=https://blurglass.app
+   NEXT_PUBLIC_APP_URL=https://blurglass.vercel.app
    ```

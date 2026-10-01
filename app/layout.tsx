@@ -2,7 +2,7 @@ import type { Metadata } from "next";
 import "./globals.css";
 
 export const metadata: Metadata = {
-  metadataBase: new URL("https://blurglass.app"),
+  metadataBase: new URL("https://blurglass.vercel.app"),
   title: "BlurGlass — Privacy-First Screen Shield for macOS",
   description:
     "BlurGlass uses on-device camera intelligence to shield your screen the moment you look away, step away, or someone glances over your shoulder.",
@@ -14,7 +14,7 @@ export const metadata: Metadata = {
     title: "BlurGlass — Your screen is visible only when you look at it.",
     description:
       "100% on-device camera vision privacy shield for Mac. Zero cloud uploads.",
-    url: "https://blurglass.app",
+    url: "https://blurglass.vercel.app",
     siteName: "BlurGlass",
     images: [
       {

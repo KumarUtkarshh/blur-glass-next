@@ -30,7 +30,7 @@ export async function POST(req: NextRequest) {
     const origin =
       process.env.NEXT_PUBLIC_APP_URL ||
       req.nextUrl.origin ||
-      'http://localhost:3000';
+      'https://blurglass.vercel.app';
 
     const returnUrl = `${origin}/checkout/success`;
 
