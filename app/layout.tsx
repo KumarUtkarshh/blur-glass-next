@@ -7,7 +7,11 @@ export const metadata: Metadata = {
   description:
     "BlurGlass uses on-device camera intelligence to shield your screen the moment you look away, step away, or someone glances over your shoulder.",
   icons: {
-    icon: [{ url: "/favicon-32.png", sizes: "32x32", type: "image/png" }],
+    icon: [
+      { url: "/app_icon.svg", type: "image/svg+xml" },
+      { url: "/favicon-32.png", sizes: "32x32", type: "image/png" },
+    ],
+    shortcut: "/app_icon.svg",
     apple: "/app_icon_1024.png",
   },
   openGraph: {
