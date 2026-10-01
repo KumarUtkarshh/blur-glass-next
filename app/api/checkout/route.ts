@@ -23,11 +23,16 @@ export async function POST(req: NextRequest) {
 
     const client = getDodoClient();
 
-    // Determine the base URL for redirect
+    // Determine the base URL for redirect dynamically based on the current request:
+    // (Local development automatically redirects to localhost:3000, production redirects to blurglass.vercel.app)
+    const host = req.headers.get('x-forwarded-host') || req.headers.get('host');
+    const proto = req.headers.get('x-forwarded-proto') || (host?.includes('localhost') ? 'http' : 'https');
+    const detectedOrigin = host ? `${proto}://${host}` : req.headers.get('origin') || req.nextUrl?.origin;
+
     const origin =
+      detectedOrigin ||
       process.env.NEXT_PUBLIC_APP_URL ||
-      req.nextUrl.origin ||
-      'https://blurglass.vercel.app';
+      'http://localhost:3000';
 
     const returnUrl = `${origin}/checkout/success`;
 
