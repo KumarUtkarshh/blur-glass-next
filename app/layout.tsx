@@ -1,6 +1,8 @@
 import type { Metadata, Viewport } from "next";
 import "./globals.css";
 import StructuredData from "@/components/StructuredData";
+import { Analytics } from "@vercel/analytics/react";
+import { SpeedInsights } from "@vercel/speed-insights/next";
 
 export const viewport: Viewport = {
   themeColor: "#f6f8fc",
@@ -113,6 +115,8 @@ export default function RootLayout({
       <body suppressHydrationWarning>
         <StructuredData />
         {children}
+        <Analytics />
+        <SpeedInsights />
       </body>
     </html>
   );
