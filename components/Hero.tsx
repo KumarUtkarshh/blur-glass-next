@@ -13,19 +13,26 @@ export default function Hero() {
           </h1>
 
           <p className="hero-intro">
-            BlurGlass uses on-device camera intelligence to frost your screen
-            the moment you look away or a second face enters view.
+            BlurGlass uses on-device Apple Vision camera intelligence to frost
+            your macOS screen the moment you look away, step away, or a second
+            face enters view.
           </p>
 
           <div className="hero-purchase">
-            <CheckoutButton className="buy-button">
+            <CheckoutButton
+              className="buy-button"
+              aria-label="Purchase BlurGlass for $3.99 one-time"
+            >
               Get BlurGlass <span>$3.99</span>
             </CheckoutButton>
           </div>
 
-          <ul className="hero-notes" aria-label="Product requirements">
-            <li>macOS 14+</li>
-            <li>FaceTime HD / Webcam</li>
+          <ul
+            className="hero-notes"
+            aria-label="Product compatibility and requirements"
+          >
+            <li>macOS 14 Sonoma & 15 Sequoia</li>
+            <li>FaceTime HD / External Webcam</li>
             <li>Zero Cloud Uploads</li>
           </ul>
         </div>

@@ -12,13 +12,14 @@ export default function ComfortZone() {
     <section className="comfort-section" id="comfort" aria-labelledby="comfort-title">
       <div className="container comfort-grid">
         <div className="comfort-copy">
+          <div className="section-eyebrow">Adaptive Glance Tolerance</div>
           <h2 id="comfort-title" className="section-h2">
             Room to move.
             <br />
             Nothing to manage.
           </h2>
           <p className="section-desc">
-            Choose how much movement feels normal. A configurable 22° zone ignores natural minor head shifts you make while reading, typing, and thinking.
+            Choose how much natural movement feels comfortable. A configurable 22° zone ignores normal head shifts while reading, coding, and typing, while immediately shielding your screen when you glance away or step away.
           </p>
         </div>
 
@@ -57,12 +58,12 @@ export default function ComfortZone() {
 
           <div className="scale-interactive-slider">
             <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center", marginTop: "16px" }}>
-              <span style={{ fontSize: "13px", fontWeight: "600", color: "var(--ink)" }}>
+              <span style={{ fontSize: "13px", fontWeight: "650", color: "var(--ink)" }}>
                 Test Sensitivity Scale: <span style={{ color: "var(--accent)" }}>{testAngle}°</span>
               </span>
               <span style={{ fontSize: "12px", color: "var(--muted)", fontWeight: "500" }}>
                 {testAngle <= comfortThreshold
-                  ? "Clear & Focused (Within Zone)"
+                  ? "Clear & Focused (Within Safe Zone)"
                   : "Shield Engaged (Gaze Exited)"}
               </span>
             </div>
@@ -73,7 +74,7 @@ export default function ComfortZone() {
               value={testAngle}
               onChange={(e) => setTestAngle(Number(e.target.value))}
               style={{ width: "100%", height: "6px", cursor: "pointer", marginTop: "12px" }}
-              aria-label="Test degree slider"
+              aria-label="Adjust gaze angle slider to test screen blur sensitivity"
             />
           </div>
         </div>

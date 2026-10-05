@@ -41,9 +41,12 @@ export default function FAQ() {
       className="faq-section"
       id="questions"
       aria-labelledby="questions-title"
+      itemScope
+      itemType="https://schema.org/FAQPage"
     >
       <div className="container faq-grid">
         <div>
+          <div className="section-eyebrow">Frequently Asked Questions</div>
           <h2 id="questions-title" className="section-h2">
             A few useful details.
           </h2>
@@ -60,6 +63,9 @@ export default function FAQ() {
               <div
                 key={idx}
                 className={`faq-item ${isOpen ? "open" : ""}`}
+                itemScope
+                itemProp="mainEntity"
+                itemType="https://schema.org/Question"
                 style={{
                   borderBottom:
                     idx === faqs.length - 1 ? "none" : "1px solid var(--line)",
@@ -73,7 +79,7 @@ export default function FAQ() {
                   aria-controls={`faq-answer-${idx}`}
                   id={`faq-question-${idx}`}
                 >
-                  <span>{faq.q}</span>
+                  <span itemProp="name">{faq.q}</span>
                   <div
                     className={`faq-icon-toggle ${isOpen ? "open" : ""}`}
                     aria-hidden="true"
@@ -102,9 +108,14 @@ export default function FAQ() {
                   role="region"
                   aria-labelledby={`faq-question-${idx}`}
                   className={`faq-answer-wrapper ${isOpen ? "open" : ""}`}
+                  itemScope
+                  itemProp="acceptedAnswer"
+                  itemType="https://schema.org/Answer"
                 >
                   <div className="faq-answer-inner">
-                    <p className="faq-answer">{faq.a}</p>
+                    <p className="faq-answer" itemProp="text">
+                      {faq.a}
+                    </p>
                   </div>
                 </div>
               </div>
