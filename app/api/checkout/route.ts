@@ -36,7 +36,12 @@ export async function POST(req: NextRequest) {
 
     const returnUrl = `${origin}/checkout/success`;
 
-    let body: { customerEmail?: string; customerName?: string; productId?: string } = {};
+    let body: {
+      customerEmail?: string;
+      customerName?: string;
+      customerPhone?: string;
+      productId?: string;
+    } = {};
     try {
       body = await req.json();
     } catch {
@@ -46,6 +51,7 @@ export async function POST(req: NextRequest) {
     const productId = body.productId || getDodoProductId();
 
     // Create Dodo Checkout Session
+    // NOTE: billing_address is intentionally omitted — we only collect email + phone
     const session = await client.checkoutSessions.create({
       product_cart: [
         {
@@ -57,6 +63,7 @@ export async function POST(req: NextRequest) {
         ? {
             email: body.customerEmail,
             name: body.customerName || 'BlurGlass Customer',
+            ...(body.customerPhone ? { phone_number: body.customerPhone } : {}),
           }
         : undefined,
       metadata: {
@@ -69,7 +76,23 @@ export async function POST(req: NextRequest) {
       feature_flags: {
         allow_discount_code: true,
         allow_currency_selection: true,
+        // Collect optional phone number
+        allow_phone_number_collection: true,
+        require_phone_number: false,
+        // Disable all address and tax-related fields
+        allow_tax_id: false,
+        require_tax_id: false,
+        allow_customer_editing_city: false,
+        allow_customer_editing_state: false,
+        allow_customer_editing_street: false,
+        allow_customer_editing_zipcode: false,
+        allow_customer_editing_country: false,
+        allow_customer_editing_tax_id: false,
+        allow_customer_editing_business_name: false,
       },
+      // Collect only the minimum required — suppresses the full address form
+      // (Dodo may still show a country selector for tax jurisdiction, which is mandatory)
+      minimal_address: true,
       return_url: returnUrl,
     });
 
@@ -86,17 +109,18 @@ export async function POST(req: NextRequest) {
       sessionId: session.session_id,
       environment,
     });
-  } catch (error: any) {
+  } catch (error: unknown) {
     const environment = getDodoEnvironment();
+    const err = error as { message?: string; error?: string; status?: number };
     console.error(`Error creating Dodo Payments checkout session (${environment}):`, error);
     return NextResponse.json(
       {
-        error: error?.message || 'Failed to create checkout session',
-        details: error?.error || error?.toString(),
+        error: err?.message ?? 'Failed to create checkout session',
+        details: err?.error ?? String(error),
         environment,
         hint: `Verify that your Dodo Payments API key and Product ID are valid for ${environment}.`,
       },
-      { status: error?.status || 500 }
+      { status: err?.status ?? 500 }
     );
   }
 }

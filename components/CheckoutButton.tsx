@@ -2,6 +2,12 @@
 
 import { useState } from "react";
 
+interface CheckoutApiResponse {
+  checkoutUrl?: string;
+  error?: string;
+  details?: string;
+}
+
 interface CheckoutButtonProps {
   className?: string;
   children?: React.ReactNode;
@@ -16,14 +22,12 @@ export default function CheckoutButton({
   productId,
 }: CheckoutButtonProps) {
   const [loading, setLoading] = useState(false);
-  const [errorMessage, setErrorMessage] = useState<string | null>(null);
 
   const handleCheckout = async (e: React.MouseEvent) => {
     e.preventDefault();
     if (loading) return;
 
     setLoading(true);
-    setErrorMessage(null);
 
     try {
       const response = await fetch("/api/checkout", {
@@ -32,11 +36,10 @@ export default function CheckoutButton({
         body: JSON.stringify({ productId }),
       });
 
-      const data = await response.json();
+      const data = (await response.json()) as CheckoutApiResponse;
 
       if (!response.ok || !data.checkoutUrl) {
-        const message = data.error || data.details || "Failed to start checkout session.";
-        setErrorMessage(message);
+        const message = data.error ?? data.details ?? "Failed to start checkout session.";
         console.error("Dodo Payments checkout error:", data);
         alert(`Dodo Payments Checkout Notice:\n\n${message}\n\nPlease check DODO_PAYMENTS_SETUP.md for quick setup instructions.`);
         return;
@@ -44,10 +47,9 @@ export default function CheckoutButton({
 
       // Redirect customer to Dodo Payments secure hosted checkout
       window.location.href = data.checkoutUrl;
-    } catch (err: any) {
-      console.error("Checkout request failed:", err);
-      const msg = err?.message || "An unexpected error occurred.";
-      setErrorMessage(msg);
+    } catch (err: unknown) {
+      const msg = err instanceof Error ? err.message : "An unexpected error occurred.";
+      console.error("Checkout request failed:", msg);
       alert(`Checkout Error:\n\n${msg}`);
     } finally {
       setLoading(false);
