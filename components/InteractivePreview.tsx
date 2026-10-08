@@ -1,30 +1,26 @@
+"use client";
+
 export default function InteractivePreview() {
   return (
     <div className="media-container" id="preview">
-      <div
-        className="product-film-card"
-        role="button"
-        tabIndex={0}
-        aria-label="Play BlurGlass preview film"
-      >
-        <div className="product-film-overlay" />
-        <div className="video-placeholder-content">
-          <div className="play-button-visual">
-            <svg
-              width="20"
-              height="20"
-              viewBox="0 0 24 24"
-              fill="currentColor"
-              aria-hidden="true"
-            >
-              <polygon points="6 4 20 12 6 20 6 4" />
-            </svg>
-          </div>
-          <div className="film-info-wrap">
-            <span className="film-placeholder-title">See BlurGlass in Action</span>
-            <span className="film-placeholder-sub">Watch 1-minute demo</span>
-          </div>
-        </div>
+      {/* Subtle ambient glow behind video */}
+      <div className="preview-ambient-glow" aria-hidden="true" />
+
+      {/* Pure Video Frame */}
+      <div className="preview-video-card">
+        <video
+          className="preview-video-element"
+          autoPlay
+          loop
+          muted
+          playsInline
+          preload="auto"
+          aria-label="BlurGlass video preview"
+        >
+          <source src="/blurglass.mp4" type="video/mp4" />
+          <source src="/blur-glass.mp4" type="video/mp4" />
+          Your browser does not support the video tag.
+        </video>
       </div>
     </div>
   );

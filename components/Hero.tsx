@@ -8,6 +8,11 @@ export default function Hero() {
     <section className="hero-section" aria-labelledby="hero-title">
       <div className="container hero-grid">
         <div className="hero-copy">
+          <div className="hero-badge">
+            <span className="pulse-dot" />
+            Apple Vision Intelligence for macOS
+          </div>
+
           <h1 id="hero-title" className="hero-title">
             The screen is readable only by you.
           </h1>
@@ -26,15 +31,6 @@ export default function Hero() {
               Get BlurGlass <span>$3.99</span>
             </CheckoutButton>
           </div>
-
-          <ul
-            className="hero-notes"
-            aria-label="Product compatibility and requirements"
-          >
-            <li>macOS 14 Sonoma & 15 Sequoia</li>
-            <li>FaceTime HD / External Webcam</li>
-            <li>Zero Cloud Uploads</li>
-          </ul>
         </div>
 
         <InteractivePreview />
